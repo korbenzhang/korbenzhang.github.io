@@ -1,23 +1,23 @@
-
 serve:
-	hugo  server
+	hugo server --theme=hyde --buildDrafts
 
 gen:
 	rm public -fr
-	hugo --theme=hugo-vitae --baseUrl="http://korbenzhang.github.io/"
+	hugo --theme=hyde --baseUrl="http://korbenzhang.github.io/"
 
 pub: gen 
-	cd public && git add .
-	cd public && git add -u
+	cd public && git init
+	cd public && git remote add origin git@github.com:korbenzhang/korbenzhang.github.io.git
+	cd public && git add -A
 	cd public && git commit -m "new deploy"
-	cd public && git push --set-upstream origin master --force
+	cd public && git push -u --set-upstream origin master --force
 
 src:
+	#git remote add origin git@github.com:korbenzhang/korbenzhang.github.io.git
 	git add  .
 	git add -u
 	git commit -m "new deploy"
-	git push
-	git push --set-upstream origin master --force
+	git push --set-upstream origin source --force
 
 deps:
 	go get -v github.com/gohugoio/hugo
